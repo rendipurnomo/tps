@@ -2,7 +2,7 @@ import { Outlet, NavLink } from 'react-router-dom';
 
 const Layout = () => {
   return (
-    <div className="h-screen relative mb-36 mt-5">
+    <div className="h-screen relative mb-36">
       <main>
       <Outlet />
       </main>

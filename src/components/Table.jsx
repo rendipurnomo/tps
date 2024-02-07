@@ -58,11 +58,11 @@ const Table = ({ data }) => {
             </div>
             <p>NIK: {item.NIK}</p>
 
-            { item.Keterangan ? null : <button
+            <button
               onClick={() => handleAbsen(item.No)}
-              className="border-2 rounded-full px-4 py-2 text-white font-bold bg-green-500">
+              className={`${item.Keterangan ? 'hidden' : 'block'} border-2 rounded-full px-4 py-2 text-white font-bold bg-green-500`}>
               Absen
-            </button>}
+            </button>
           </div>
         </div>
       ))}

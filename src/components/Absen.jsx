@@ -21,9 +21,17 @@ const Absen = () => {
     setMeninggal(absen?.filter((item) => item.Keterangan === 'MENINGGAL'));
   };
 
+  const topScreen = () => {
+    window.scrollTo(0, 0);
+  }
+
+  useEffect(() => {
+    topScreen();
+  },[ absensi, belumHadir, meninggal ]);
+
   return (
     <section className='min-h-screen'>
-      <div className='sticky top-0 left-0 bg-white border-b'>
+      <div className='bg-white border-b'>
       <h1 className="text-3xl text-center font-bold">ABSEN</h1>
       <div>
         <p>Total Hadir: {absensi ? absensi.length : 0}</p>
