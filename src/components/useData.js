@@ -1,40 +1,47 @@
 import { useState,useEffect} from 'react';
-import { users } from '../api';
+import axios from 'axios';
 
 export const useData = () => {
   const [data, setData] = useState([]);
   const [query, setQuery] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  const fetchData = () => {
-    const data = localStorage.getItem('data');
-    if(!data) {
-      localStorage.setItem('data', JSON.stringify(users));
+  const fetchData = async () => {
+    try {
+      setIsLoading(true);
+      const res = await axios.get('https://datasheet.vercel.app/users');
+      setData(res.data);
+      setIsLoading(false);
+    }catch (error) {
+      console.log(error);
     }
-    setData(users);
   }
 
   const keys = ['NoKK', 'NIK', 'Nama'];
 
   const search = (data) => {
-    return data.filter((item) =>
-      keys.some((key) => item[key].toLowerCase().includes(query))
-    );
+    if (!query) {
+      return data;
+    }
+    // Filter data based on query
+    return data.filter((item) => keys.some((key) => item[key].toLowerCase().includes(query.toLowerCase())));
   };
 
   const handleSearch = () => {
     if (!query) {
-      return users;
+      return data;
     }
-    setData(search(users));
+
+    setData(search(data));
   };
 
   const handleReset = () => {
-    setData(users);
     setQuery('');
+    fetchData();
   };
 
   return {
@@ -42,7 +49,8 @@ export const useData = () => {
     handleSearch,
     query,
     setQuery,
-    handleReset
+    handleReset,
+    isLoading
   }
 
 }

@@ -1,9 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import copy from '../assets/copy-svgrepo-com.svg';
 import toast, { Toaster } from 'react-hot-toast';
+import axios from 'axios';
+import { useState } from 'react';
 
 const Table = ({ data }) => {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   const copyText = (KK) => {
     const textElement = document.createElement('textarea');
@@ -20,52 +23,57 @@ const Table = ({ data }) => {
     });
   };
 
-
-  const handleAbsen = (No) => {
-    delete data.No
+  const handleAbsen = async (No) => {
+    confirm('Apakah anda yakin ingin menandai absen?');
     try {
-      data.map((item) => {
-        if (item.No === No) {
-          item.Keterangan = true;
-          localStorage.setItem('data', JSON.stringify(data));
-          toast.success('Absen Berhasil');
-        }
-        navigate('/absen');
-        return item;
-
+      setIsLoading(true);
+      await axios.patch(`http://localhost:5000/users/${No}`, {
+        absen: 'TRUE',
       });
+      toast.success('Absen Berhasil');
+      setIsLoading(false);
+      navigate('/absen');
     } catch (error) {
-      toast.error(error.message);
+      toast.error('Absen Gagal');
       console.log(error);
     }
   };
 
   return (
     <div className="p-2 space-y-4">
-      {data?.map((item, index) => (
-        <div key={index} className="flex gap-2 p-2 bg-gray-300 rounded-md">
-          <p className="font-bold w-1/4 border-r border-gray-500">
-            No: {item.No}
-          </p>
-          <div className="flex flex-col gap-2">
-            <p className="font-bold">{item.Nama}</p>
-            <div className="flex gap-2">
-              <p>No.KK: {item.NoKK}</p>
-              <button onClick={() => copyText(item.NoKK)}>
-                <img className="ml-2 h-4 w-4" src={copy} alt="" />
-                copy
-              </button>
+      {data ? (
+        data.map((item, index) =>
+            <div key={index} className="flex gap-2 p-2 bg-gray-300 rounded-md">
+              <p className="font-bold w-1/4 border-r border-gray-500">
+                No: {item.No}
+              </p>
+              <div className="flex flex-col gap-2">
+                <p className="font-bold">{item.Nama}</p>
+                <div className="flex gap-2">
+                  <p>No.KK: {item.NoKK}</p>
+                  <button onClick={() => copyText(item.NoKK)}>
+                    <img className="ml-2 h-4 w-4" src={copy} alt="" />
+                    copy
+                  </button>
+                </div>
+                <p>NIK: {item.NIK}</p>
+                {item.absen === 'FALSE' ? (
+                <button
+                  onClick={() => handleAbsen(item.No)}
+                  className={`${
+                    item.Keterangan ? 'hidden' : 'block'
+                  } border-2 rounded-full px-4 py-2 text-white font-bold bg-green-500`}>
+                  Absen
+                </button>
+                ) : null}
+              </div>
             </div>
-            <p>NIK: {item.NIK}</p>
-
-            <button
-              onClick={() => handleAbsen(item.No)}
-              className={`${item.Keterangan ? 'hidden' : 'block'} border-2 rounded-full px-4 py-2 text-white font-bold bg-green-500`}>
-              Absen
-            </button>
-          </div>
+        )
+      ) : (
+        <div>
+          <p>Tidak ada data ditemukan</p>
         </div>
-      ))}
+      )}
 
       <Toaster
         position="top-center"

@@ -2,7 +2,7 @@ import { Outlet, NavLink } from 'react-router-dom';
 
 const Layout = () => {
   return (
-    <div className="h-screen relative mb-36">
+    <div className="min-h-screen relative mb-36">
       <main>
       <Outlet />
       </main>
@@ -13,6 +13,9 @@ const Layout = () => {
           </li>
           <li>
             <NavLink to="/absen" className='px-4 py-2 rounded-md bg-red-500'>Absen</NavLink>
+          </li>
+          <li>
+            <NavLink to="/hasil" className='px-4 py-2 rounded-md bg-indigo-500'>C.HASIL</NavLink>
           </li>
         </ul>
       </nav>
