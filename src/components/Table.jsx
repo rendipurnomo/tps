@@ -27,7 +27,7 @@ const Table = ({ data }) => {
     confirm('Apakah anda yakin ingin menandai absen?');
     try {
       setIsLoading(true);
-      await axios.patch(`http://localhost:5000/users/${No}`, {
+      await axios.patch(`https://datasheet.vercel.app/users/${No}`, {
         absen: 'TRUE',
       });
       toast.success('Absen Berhasil');
