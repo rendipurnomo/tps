@@ -19,7 +19,7 @@ const Absen = () => {
   const handleRevisi = async (No) => {
     try {
       confirm('Apakah anda yakin ingin mengembalikan absen?');
-      await axios.patch(`http://localhost:5000/users/${No}`, {
+      await axios.patch(`https://datasheet.vercel.app/users/${No}`, {
         absen: 'FALSE',
       });
       toast.success('Revisi Berhasil');
