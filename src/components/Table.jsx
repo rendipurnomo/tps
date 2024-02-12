@@ -4,6 +4,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useData } from './useData';
+import { useState } from 'react';
 
 const Table = ({ data }) => {
   const { isLoading } = useData();
@@ -41,13 +42,11 @@ const Table = ({ data }) => {
 
   useEffect(() => {
     setDatas(data);
-  },[data])
+  }, [data]);
 
   return (
     <div className="p-2 space-y-4">
-      {isLoading ? (
-        <Spinner />
-      ) : null}
+      {isLoading ? <Spinner /> : null}
       {datas ? (
         datas.map((item, index) => (
           <div key={index} className="flex gap-2 p-2 bg-gray-300 rounded-md">
