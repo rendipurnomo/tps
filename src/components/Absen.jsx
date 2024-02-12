@@ -19,7 +19,7 @@ const Absen = () => {
   const handleRevisi = async (No) => {
     try {
       confirm('Apakah anda yakin ingin mengembalikan absen?');
-      await axios.patch(`https://datasheet.vercel.app/users/${No}`, {
+      await axios.patch(`${import.meta.env.VITE_API_URL}/${No}`, {
         absen: 'FALSE',
       });
       toast.success('Revisi Berhasil');

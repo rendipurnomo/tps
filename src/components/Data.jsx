@@ -1,10 +1,31 @@
 import Table from './Table';
 import { useData } from './useData';
 import Spinner from './Spinner';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 const Data = () => {
-  const { data, handleSearch, query, setQuery, handleReset, isLoading } = useData();
+  const { data, query, setQuery, isLoading } = useData();
+  const [datas, setDatas] = useState(data);
 
+  const handleSearch = () => {
+    const filteredData = data.filter((item) =>{
+      return Object.values(item).some((value) => {
+        return value.toString().toLowerCase().includes(query.toLowerCase());
+      });
+    });
+    setQuery('');
+    setDatas(filteredData);
+  }
+
+  const handleReset = () => {
+    setQuery('');
+    setDatas(data);
+  }
+
+  useEffect(() => {
+    setDatas(data);
+  }, [data]);
 
   return (
     <div>
@@ -29,8 +50,9 @@ const Data = () => {
         </button>
       </div>
       <h2 className='font-bold bg-yellow-700 text-white'>Total Data: {data?.length}</h2>
-      {isLoading ? <Spinner /> : null}
-        <Table data={data} />
+      {isLoading ? <Spinner /> : (
+        <Table data={datas} />
+      )}
       </div>
   )
 

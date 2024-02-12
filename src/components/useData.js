@@ -11,7 +11,7 @@ export const useData = () => {
 
   const fetchData = async () => {
     try {
-      const res = await axios.get('https://datasheet.vercel.app/users');
+      const res = await axios.get(import.meta.env.VITE_API_URL);
       return res.data
     }catch (error) {
       console.log(error);
@@ -31,16 +31,13 @@ export const useData = () => {
   };
 
   const handleSearch = () => {
-    if (!query) {
-      return data;
-    }
-
-    search(data);
+    fetchData();
+    setQuery('');
   };
 
   const handleReset = () => {
+    
     setQuery('');
-    fetchData();
   };
 
   return {
@@ -50,7 +47,8 @@ export const useData = () => {
     query,
     setQuery,
     handleReset,
-    fetchData
+    fetchData,
+    search
   }
 
 }
