@@ -19,9 +19,6 @@ export const useData = () => {
   }
 
   const { data } = useSWR('users', fetchData);
-  if(!data) {
-    return <h1>Loading...</h1>
-  }
 
   const keys = ['NoKK', 'NIK', 'Nama'];
 
