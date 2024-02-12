@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Spinner from './Spinner';
+import { useState } from 'react';
 
 const Absen = () => {
   const { data, isLoading } = useData();
