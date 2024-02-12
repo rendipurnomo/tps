@@ -251,7 +251,7 @@ const Hasil = () => {
                 {DPTbPerempuan > 0 ? DPTbPerempuan : 'XXX'}
               </td>
               <td className="border-[1px] border-gray-300 text-lg font-bold text-center">
-                {DPTbLakiLaki + DPTbPerempuan > 0 ? DPTbLakiLaki + DPTbPerempuan : 'XXX'}
+                {DPTbLakiLaki + DPTbPerempuan > 0 ? parseInt(DPTbLakiLaki) + parseInt(DPTbPerempuan) : 'XXX'}
               </td>
             </tr>
 
@@ -283,7 +283,7 @@ const Hasil = () => {
                   : 'XXX'}
               </td>
               <td className="border-[1px] border-gray-300 text-lg font-bold text-center text-red-500">
-                {dptPengguna.length > 0 ? dptPengguna.length : 'XXX'}
+                {dptPengguna.length > 0 ? parseInt(dptPengguna.length) + parseInt(DPTbLakiLaki) + parseInt(DPTbPerempuan) : 'XXX'}
               </td>
             </tr>
           </tbody>
