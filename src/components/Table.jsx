@@ -3,6 +3,7 @@ import copy from '../assets/copy-svgrepo-com.svg';
 import toast, { Toaster } from 'react-hot-toast';
 import axios from 'axios';
 import { useEffect } from 'react';
+import { useData } from './useData';
 
 const Table = ({ data }) => {
   const { isLoading } = useData();
