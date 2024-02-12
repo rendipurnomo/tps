@@ -1,7 +1,6 @@
 import { useState,useEffect} from 'react';
 import axios from 'axios';
 import useSWR from 'swr';
-import Spinner from './Spinner';
 
 export const useData = () => {
   const [query, setQuery] = useState('');
@@ -21,7 +20,7 @@ export const useData = () => {
 
   const { data } = useSWR('users', fetchData);
   if(!data) {
-    return <Spinner />
+    return <h1>Loading...</h1>
   }
 
   const keys = ['NoKK', 'NIK', 'Nama'];
