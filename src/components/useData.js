@@ -1,10 +1,10 @@
 import { useState,useEffect} from 'react';
 import axios from 'axios';
+import useSWR from 'swr';
+import Spinner from './Spinner';
 
 export const useData = () => {
-  const [data, setData] = useState([]);
   const [query, setQuery] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -12,13 +12,16 @@ export const useData = () => {
 
   const fetchData = async () => {
     try {
-      setIsLoading(true);
       const res = await axios.get('https://datasheet.vercel.app/users');
-      setData(res.data);
-      setIsLoading(false);
+      return res.data
     }catch (error) {
       console.log(error);
     }
+  }
+
+  const { data } = useSWR('users', fetchData);
+  if(!data) {
+    return <Spinner />
   }
 
   const keys = ['NoKK', 'NIK', 'Nama'];
@@ -36,7 +39,7 @@ export const useData = () => {
       return data;
     }
 
-    setData(search(data));
+    search(data);
   };
 
   const handleReset = () => {
@@ -50,7 +53,7 @@ export const useData = () => {
     query,
     setQuery,
     handleReset,
-    isLoading
+    fetchData
   }
 
 }

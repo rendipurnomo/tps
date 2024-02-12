@@ -2,9 +2,10 @@ import React from 'react';
 import { useData } from './useData';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 const Hasil = () => {
-  const { data, isLoading } = useData();
+  const { data } = useData();
   const [suratSuara, setSuratSuara] = useState(0);
   const [suratRusak, setSuratRusak] = useState(0);
   const [DPTbPerempuan, setDPTbPerempuan] = useState(0);
@@ -67,6 +68,7 @@ const Hasil = () => {
       DPTbLakiLaki
     }
     localStorage.setItem('data', JSON.stringify(data));
+    toast.success('Data tersimpan');
   }
 
 

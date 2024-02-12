@@ -1,9 +1,8 @@
-import Spinner from './Spinner';
 import Table from './Table';
 import { useData } from './useData';
 
 const Data = () => {
-  const { data, handleSearch, query, setQuery, handleReset,isLoading } = useData();
+  const { data, handleSearch, query, setQuery, handleReset } = useData();
 
 
   return (
@@ -29,11 +28,7 @@ const Data = () => {
         </button>
       </div>
       <h2 className='font-bold bg-yellow-700 text-white'>Total Data: {data?.length}</h2>
-      {isLoading ? (
-        <Spinner />
-      ):(
         <Table data={data} />
-      )}
       </div>
   )
 
