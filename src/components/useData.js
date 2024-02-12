@@ -11,7 +11,7 @@ export const useData = () => {
 
   const fetchData = async () => {
     try {
-      const res = await axios.get(import.meta.env.VITE_API_URL);
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}`);
       return res.data
     }catch (error) {
       console.log(error);
