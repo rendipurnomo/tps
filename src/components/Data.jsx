@@ -1,8 +1,9 @@
 import Table from './Table';
 import { useData } from './useData';
+import Spinner from './Spinner';
 
 const Data = () => {
-  const { data, handleSearch, query, setQuery, handleReset } = useData();
+  const { data, handleSearch, query, setQuery, handleReset, isLoading } = useData();
 
 
   return (
@@ -28,6 +29,7 @@ const Data = () => {
         </button>
       </div>
       <h2 className='font-bold bg-yellow-700 text-white'>Total Data: {data?.length}</h2>
+      {isLoading ? <Spinner /> : null}
         <Table data={data} />
       </div>
   )

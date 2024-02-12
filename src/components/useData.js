@@ -18,7 +18,7 @@ export const useData = () => {
     }
   }
 
-  const { data } = useSWR('users', fetchData);
+  const { data, isLoading } = useSWR('users', fetchData);
 
   const keys = ['NoKK', 'NIK', 'Nama'];
 
@@ -44,6 +44,7 @@ export const useData = () => {
   };
 
   return {
+    isLoading,
     data,
     handleSearch,
     query,

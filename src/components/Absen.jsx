@@ -4,9 +4,10 @@ import { useData } from './useData';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Spinner from './Spinner';
 
 const Absen = () => {
-  const { data } = useData();
+  const { data, isLoading } = useData();
   const navigate = useNavigate();
 
   const absensi = data.filter((item) => item.absen === 'TRUE');
@@ -48,6 +49,9 @@ const Absen = () => {
           <p>Total Laki-Laki Yang Hadir: {lakiLaki ? lakiLaki.length : 0}</p>
         </div>
       </div>
+      {isLoading ? (
+        <Spinner />
+      ) : null}
         <table className="w-full table-auto border-collapse border border-slate-400 text-center">
           <thead>
             <tr>
