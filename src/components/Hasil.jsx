@@ -364,7 +364,7 @@ const Hasil = () => {
                 termasuk surat suara cadangan
               </td>
               <td className="border-[1px] border-gray-300 text-lg font-bold text-center">
-                {suratSuara - dptPengguna.length - suratRusak}
+                {suratSuara - parseInt(dptPengguna.length) -parseInt(DPTbLakiLaki) -parseInt(DPTbPerempuan) - suratRusak}
               </td>
             </tr>
           </tbody>
