@@ -2,8 +2,11 @@ import { useNavigate } from 'react-router-dom';
 import copy from '../assets/copy-svgrepo-com.svg';
 import toast, { Toaster } from 'react-hot-toast';
 import axios from 'axios';
+import { useEffect } from 'react';
 
 const Table = ({ data }) => {
+  const { isLoading } = useData();
+  const [datas, setDatas] = useState(data);
   const navigate = useNavigate();
 
   const copyText = (KK) => {
@@ -35,10 +38,17 @@ const Table = ({ data }) => {
     }
   };
 
+  useEffect(() => {
+    setDatas(data);
+  },[data])
+
   return (
     <div className="p-2 space-y-4">
-      {data ? (
-        data.map((item, index) => (
+      {isLoading ? (
+        <Spinner />
+      ) : null}
+      {datas ? (
+        datas.map((item, index) => (
           <div key={index} className="flex gap-2 p-2 bg-gray-300 rounded-md">
             <p className="font-bold w-1/4 border-r border-gray-500">
               No: {item.No}

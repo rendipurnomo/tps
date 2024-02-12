@@ -8,6 +8,7 @@ import Spinner from './Spinner';
 
 const Absen = () => {
   const { data, isLoading } = useData();
+  const [datas, setDatas] = useState(data);
   const navigate = useNavigate();
 
   const absensi = data.filter((item) => item.absen === 'TRUE');
@@ -34,8 +35,9 @@ const Absen = () => {
   };
 
   useEffect(() => {
+    setDatas(data);
     topScreen();
-  }, [absensi, belumHadir, meninggal]);
+  }, [absensi, belumHadir, meninggal, perempuan, lakiLaki, data]);
 
   return (
     <section className="min-h-screen">
@@ -62,8 +64,8 @@ const Absen = () => {
             </tr>
           </thead>
           <tbody>
-            {data
-              ? data.map((item, index) =>
+            {datas
+              ? datas.map((item, index) =>
                   item.absen === 'TRUE' ? (
                     <tr key={index}>
                       <td>{item.No}</td>
