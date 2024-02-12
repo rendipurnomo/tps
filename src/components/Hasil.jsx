@@ -49,13 +49,22 @@ const Hasil = () => {
     const data = localStorage.getItem('data');
 
     if (data) {
-      const { suratSuara, suratRusak, DPTbPerempuan, DPTbLakiLaki } = JSON.parse(data);
+      const { suratSuara, suratRusak, DPTbPerempuan, DPTbLakiLaki } =
+        JSON.parse(data);
       setSuratSuara(suratSuara);
       setSuratRusak(suratRusak);
       setDPTbPerempuan(DPTbPerempuan);
       setDPTbLakiLaki(DPTbLakiLaki);
-    }else {
-      localStorage.setItem('data', JSON.stringify({ suratSuara: 0, suratRusak: 0, DPTbPerempuan: 0, DPTbLakiLaki: 0 }));
+    } else {
+      localStorage.setItem(
+        'data',
+        JSON.stringify({
+          suratSuara: 0,
+          suratRusak: 0,
+          DPTbPerempuan: 0,
+          DPTbLakiLaki: 0,
+        })
+      );
     }
   }, [data]);
 
@@ -65,18 +74,18 @@ const Hasil = () => {
       suratSuara,
       suratRusak,
       DPTbPerempuan,
-      DPTbLakiLaki
-    }
+      DPTbLakiLaki,
+    };
     localStorage.setItem('data', JSON.stringify(data));
     toast.success('Data tersimpan');
-  }
-
-
+  };
 
   return (
     <div className="min-h-screen w-full text-xs py-4">
-      <div className='p-4 mb-5 w-[80%] mx-auto rounded-md shadow-lg bg-gray-200'>
-        <form className="w-1/2 mx-auto flex flex-col gap-2" onSubmit={handleSubmit}>
+      <div className="p-4 mb-5 w-[80%] mx-auto rounded-md shadow-lg bg-gray-200">
+        <form
+          className="w-1/2 mx-auto flex flex-col gap-2"
+          onSubmit={handleSubmit}>
           <label htmlFor="jumlahSuratSuara" className="font-bold text-red-500">
             Jumlah Surat Suara termasuk tambahan 2%
           </label>
@@ -99,34 +108,42 @@ const Hasil = () => {
             value={suratRusak}
             onChange={(e) => setSuratRusak(e.target.value)}
           />
-            <h1 className="font-bold text-center">Pengguna DPTb</h1>
-          <div className='flex gap-2'>
-          <div className='flex flex-col w-1/2'>
-            <label htmlFor="jumlahDptbPerempuan" className="font-bold text-red-500 text-center">
-            perempuan
-          </label>
-          <input
-            id="jumlahDptbPerempuan"
-            type="number"
-            className="border-2 rounded-md p-2"
-            value={DPTbPerempuan}
-            onChange={(e) => setDPTbPerempuan(e.target.value)}
-          />
+          <h1 className="font-bold text-center">Pengguna DPTb</h1>
+          <div className="flex gap-2">
+            <div className="flex flex-col w-1/2">
+              <label
+                htmlFor="jumlahDptbPerempuan"
+                className="font-bold text-red-500 text-center">
+                perempuan
+              </label>
+              <input
+                id="jumlahDptbPerempuan"
+                type="number"
+                className="border-2 rounded-md p-2"
+                value={DPTbPerempuan}
+                onChange={(e) => setDPTbPerempuan(e.target.value)}
+              />
+            </div>
+            <div className="flex flex-col w-1/2">
+              <label
+                htmlFor="jumlahDptbLakiLaki"
+                className="font-bold text-red-500 text-center">
+                laki-laki
+              </label>
+              <input
+                id="jumlahDptbLakiLaki"
+                type="number"
+                className="border-2 rounded-md p-2"
+                value={DPTbLakiLaki}
+                onChange={(e) => setDPTbLakiLaki(e.target.value)}
+              />
+            </div>
           </div>
-          <div className='flex flex-col w-1/2'>
-            <label htmlFor="jumlahDptbLakiLaki" className="font-bold text-red-500 text-center">
-            laki-laki
-          </label>
-          <input
-            id="jumlahDptbLakiLaki"
-            type="number"
-            className="border-2 rounded-md p-2"
-            value={DPTbLakiLaki}
-            onChange={(e) => setDPTbLakiLaki(e.target.value)}
-          />
-          </div>
-          </div>
-          <button className="border-2 bg-green-500 rounded-full px-4 py-2 text-white font-bold" type='submit'>Simpan</button>
+          <button
+            className="border-2 bg-green-500 rounded-full px-4 py-2 text-white font-bold"
+            type="submit">
+            Simpan
+          </button>
         </form>
       </div>
       <h1 className="text-center font-bold px-10 mb-5">
@@ -251,7 +268,9 @@ const Hasil = () => {
                 {DPTbPerempuan > 0 ? DPTbPerempuan : 'XXX'}
               </td>
               <td className="border-[1px] border-gray-300 text-lg font-bold text-center">
-                {DPTbLakiLaki + DPTbPerempuan > 0 ? parseInt(DPTbLakiLaki) + parseInt(DPTbPerempuan) : 'XXX'}
+                {DPTbLakiLaki + DPTbPerempuan > 0
+                  ? parseInt(DPTbLakiLaki) + parseInt(DPTbPerempuan)
+                  : 'XXX'}
               </td>
             </tr>
 
@@ -283,7 +302,11 @@ const Hasil = () => {
                   : 'XXX'}
               </td>
               <td className="border-[1px] border-gray-300 text-lg font-bold text-center text-red-500">
-                {dptPengguna.length > 0 ? parseInt(dptPengguna.length) + parseInt(DPTbLakiLaki) + parseInt(DPTbPerempuan) : 'XXX'}
+                {dptPengguna.length > 0
+                  ? parseInt(dptPengguna.length) +
+                    parseInt(DPTbLakiLaki) +
+                    parseInt(DPTbPerempuan)
+                  : 'XXX'}
               </td>
             </tr>
           </tbody>
@@ -317,7 +340,11 @@ const Hasil = () => {
                 2. Jumlah surat suara yang digunakan
               </td>
               <td className="border-[1px] border-gray-300 text-lg font-bold text-center text-red-500">
-                {dptPengguna.length > 0 ? dptPengguna.length : 'XXX'}
+                {dptPengguna.length > 0
+                  ? parseInt(dptPengguna.length) +
+                    parseInt(DPTbLakiLaki) +
+                    parseInt(DPTbPerempuan)
+                  : 'XXX'}
               </td>
             </tr>
 
